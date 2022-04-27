@@ -1,0 +1,23 @@
+First off make cactus model
+    cactus hit box
+        top xxx
+        bottom xxx
+        sides 
+
+    for cactus make them rotate
+    kill the dino xxx
+
+Make dino villain
+    make the jump/dodge happen when cactus gets near
+
+
+background 
+    make the desert theme paralax
+
+win condition
+    killing the dino // either a killing it once or have it have lives
+
+extras 
+    make upgrades
+    save upgrades in cookies maybe
+    high score leader board
