@@ -177,6 +177,16 @@ function animate() {
             console.log("you lose: BOTTOM HITBOX of cactus")
         }
 
+        if (
+                player.position.x                       <= cactus.position.x + cactus.width
+            &&  player.position.x + player.width        >= cactus.position.x
+            &&  player.position.y                       <= cactus.position.y + cactus.height
+            &&  player.position.y + player.height       >= cactus.position.y
+        ) {
+            player.velocity.x = 0
+            console.log("you lose: SIDE HITBOX of cactus")
+        }
+
         // if (
         //         player.position.x                       >= cactus.position.x
         // )
