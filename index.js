@@ -14,6 +14,9 @@ canvas.height = innerHeight
 
 
 const gravity = .5
+let gameSpeed = .1 // scroll speed auto should ramp up
+let gameState = true
+
 // ============================================================================= char
 class Player {
     constructor() {
@@ -76,6 +79,16 @@ class Cactus {
         c.fillStyle= 'green'
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
+
+    update() {
+        this.draw()
+        this.position.x += this.velocity.x
+        this.position.y += this.velocity.y
+
+        if (this.position.y + this.height + this.velocity.y <= canvas.height)
+            this.velocity.y += gravity
+        else this.velocity.y = 0
+    }
 }
 class GenericObject {
     constructor({x,y,width,height}) {
@@ -89,11 +102,33 @@ class GenericObject {
     }
 
     draw() {
-        c.fillStyle= 'blue'
+        c.fillStyle = 'blue'
+        c.fillRect(this.position.x, this.position.y, this.width, this.height)
+    }
+}
+
+class EndScreen {
+    constructor({x,y,width,height}) {
+        this.position = {
+            x,
+            y,
+        }
+        this.width  = 400
+        this.height = 300
+    }
+
+    drawWin() {
+        c.fillStyle = "green"
+        c.fillRect(this.position.x, this.position.y, this.width, this.height)
+    }
+
+    drawLoss() {
+        c.fillStyle = "red"
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 }
 // ========================================================================== Game objects
+
 
 const player = new Player() // player
 const platforms = [new Platform({x:200,y:500}
@@ -165,6 +200,7 @@ function animate() {
             {
             player.velocity.y = 0
             console.log("you lose: TOP HITBOX of cactus")
+            gameState = false
             }
         
         if (
@@ -175,6 +211,7 @@ function animate() {
         ) {
             player.velocity.y = 0
             console.log("you lose: BOTTOM HITBOX of cactus")
+            gameState = false
         }
 
         if (
@@ -185,6 +222,7 @@ function animate() {
         ) {
             player.velocity.x = 0
             console.log("you lose: SIDE HITBOX of cactus")
+            gameState = false
         }
 
         // if (
@@ -207,7 +245,6 @@ function animate() {
         console.log("you win")
     }
 }
-
 animate()
 
 // ============================================================================= event listeners
